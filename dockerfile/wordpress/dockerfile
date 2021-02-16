@@ -1,0 +1,12 @@
+FROM wordpress
+
+RUN echo 'update & install start'; \
+  apt-get update && \
+  apt-get upgrade -y && \
+  apt-get install python-certbot-apache -y && \
+  apt-get install git -y
+
+RUN echo 'wp-cli'; \
+  curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar; \
+  chmod +x wp-cli.phar; \
+  mv wp-cli.phar /usr/local/bin/wp;
