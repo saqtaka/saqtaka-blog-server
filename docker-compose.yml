@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+    db:
+        build: ./dockerfile/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: somewordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+
+    wordpress:
+        depends_on:
+            - db
+        build: ./dockerfile/wordpress
+        ports:
+            - "80:80"
+            - "443:443"
+        restart: always
+        environment:
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+
+    centos:
+        build: ./dockerfile/centos
+        volumes:
+            - ./scr:/home/my/scr
+            - ./app:/home/my/app
+            - /var/run/docker.sock:/var/run/docker.sock
+        tty: true
+
+    
