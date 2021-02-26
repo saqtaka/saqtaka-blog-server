@@ -73,7 +73,7 @@ do
                   T001.nen\"" > .cache/$line.csv
 
     # json=""`jq -s -R 'split("\n")|map(split("\t"))|map({"tdfk_skts": .[0], "syurui": .[1], "nen": .[2], "tsubotanka": .[3], "kensuu": .[4]})' .cache/''$'\344\270\211\351\207\215\347\234\214\343\201\204\343\201\252\343\201\271\345\270\202''.txt' |jq 'del(.[][] | nulls)' | head -n -2 | sed -e 1d -e 's/},/}/g' | jq . -c`
-    json="`jq -s -R 'split("\n")|map(split("\t"))|map({"tdfk_skts": .[0], "syurui": .[1], "nen": .[2], "tsubotanka": .[3], "kensuu": .[4]})' .cache/$line.csv | jq 'del(.[][] | nulls)' | head -n -2 | sed -e 1d -e 's/},/}/g' | jq . -c`"
+    json="`jq -s -R 'split("\n")|map(split("\t"))|map({"tdfk_skts": .[0], "syurui": .[1], "nen": .[2], "tsubotanka": .[3], "kensuu": .[4]})' .cache/$line.csv | jq 'del(.[][] | nulls)' | head -n -2 | sed -e 1d -e 's/},/}/g' | jq . -c | tr -d "\n"`"
     echo $json
 
     docker exec $wordpress_name \
